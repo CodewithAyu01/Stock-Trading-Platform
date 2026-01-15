@@ -1,0 +1,12 @@
+frontend-HTML/CSSS/JS
+            React-for liberaries and UI and SPAs(Single Page Application)
+            Bootstrap-library(the structured code is available redimate)
+            Mateial UI- icons are available 
+            #Bootstrap(Landing page) and MateialUI(Dashboard) are supporting 
+Backend - Node.js and Express.js 
+           |_    Runtime env. |
+                              |__Package available in Node.js for database connectivity,API connectivity,Authentication and much more
+Database - Mongo DB(No Sql(Sequal) database)-Unstrucured data/Semi-styled data.
+Testing Framework - Jest
+Deployment - AWS(Paid),Render
+Github
