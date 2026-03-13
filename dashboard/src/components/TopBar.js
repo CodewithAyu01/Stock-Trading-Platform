@@ -1,8 +1,18 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import Menu from "./Menu";
 
 const TopBar = () => {
+  const [userName, setUserName] = useState("User");
+
+  useEffect(() => {
+    // URL se 'user' parameter nikalna
+    const params = new URLSearchParams(window.location.search);
+    const user = params.get("user");
+    if (user) {
+      setUserName(user);
+    }
+  }, []);
+
   return (
     <div className="topbar-container">
       <div className="indices-container">
@@ -18,7 +28,8 @@ const TopBar = () => {
         </div>
       </div>
 
-      <Menu />
+      {/* ✅ Humne userName ko Menu mein bhej diya */}
+      <Menu userName={userName} />
     </div>
   );
 };

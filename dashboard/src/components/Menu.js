@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [displayName, setDisplayName] = useState("USERID");
+  const [displayName, setDisplayName] = useState("USER"); // Default name
 
   useEffect(() => {
-    // URL se username nikalne ka logic
+    // ✅ FIX: Parameter ka naam 'user' hona chahiye, kyunki humne wahi bheja hai
     const params = new URLSearchParams(window.location.search);
-    const user = params.get("username");
+    const user = params.get("user"); 
     
     if (user) {
       setDisplayName(user);
@@ -29,7 +29,9 @@ const Menu = () => {
 
   return (
     <div className="menu-container">
-      <img src="logo.png" style={{ width: "50px" }} alt="Logo" />
+      {/* Zerodha jaisa logo width thodi badi kar sakte ho */}
+      <img src="logo.png" style={{ width: "30px", marginRight: "20px" }} alt="Logo" />
+      
       <div className="menus">
         <ul>
           <li>
@@ -54,6 +56,8 @@ const Menu = () => {
           </li>
         </ul>
         <hr />
+        
+        {/* Profile Section */}
         <div className="profile" onClick={handleProfileClick} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "10px" }}>
           <div className="avatar" style={{ 
             backgroundColor: "#387ed1", 
@@ -64,11 +68,15 @@ const Menu = () => {
             display: "flex", 
             alignItems: "center", 
             justifyContent: "center",
-            fontWeight: "bold"
+            fontWeight: "bold",
+            fontSize: "14px"
           }}>
+            {/* Pehla akshar display karega */}
             {displayName.charAt(0).toUpperCase()}
           </div>
-          <p className="username" style={{ margin: 0, fontWeight: "500" }}>{displayName}</p>
+          <p className="username" style={{ margin: 0, fontWeight: "500", fontSize: "14px", color: "#424242" }}>
+            {displayName.toUpperCase()}
+          </p>
         </div>
       </div>
     </div>
