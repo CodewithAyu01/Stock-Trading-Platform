@@ -7,8 +7,14 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 
+// ✅ CORS FIXED: Ab ye tumhare Render URLs ko allow karega
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: [
+      "http://localhost:3000", 
+      "http://localhost:3001",
+      "https://stock-trading-platform-49y0.onrender.com", // Tumhara Frontend
+      "https://stock-trading-platform2.onrender.com"     // Tumhara Dashboard
+    ],
     methods: ["GET", "POST"],
     credentials: true
 }));
@@ -20,8 +26,7 @@ mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// --- MODELS (Pehle Schema, Phir Model) ---
-
+// --- MODELS ---
 const User = mongoose.model("User", new mongoose.Schema({
   username: String,
   email: { type: String, required: true, unique: true },
@@ -37,7 +42,6 @@ const Holding = mongoose.model("Holding", new mongoose.Schema({
   day: String,
 }));
 
-// Positions Schema aur Model ko yahan saath mein rakhein
 const PositionsSchema = new mongoose.Schema({
   product: String,
   name: String,
@@ -48,7 +52,7 @@ const PositionsSchema = new mongoose.Schema({
   day: String,
   isLoss: Boolean,
 });
-//orders
+
 const Order = mongoose.model("Order", new mongoose.Schema({
     name: String,
     qty: Number,
@@ -56,7 +60,6 @@ const Order = mongoose.model("Order", new mongoose.Schema({
     mode: String,
 }));
 
-// Model humesha Schema ke BAAD banta hai
 const Position = mongoose.model("position", PositionsSchema);
 
 const JWT_SECRET = process.env.JWT_SECRET || "fallback_secret";
@@ -77,10 +80,10 @@ app.get("/allPositions", async (req, res) => {
     const allPositions = await Position.find({}); 
     res.status(200).json(allPositions);
   } catch (err) {
-    console.log("DB Error:", err);
     res.status(500).json({ success: false, message: "Database error" });
   }
 });
+
 app.post("/newOrder", async (req, res) => {
   try {
     const newOrder = new Order({
@@ -89,11 +92,9 @@ app.post("/newOrder", async (req, res) => {
       price: req.body.price,
       mode: req.body.mode,
     });
-
     await newOrder.save();
     res.status(201).json({ success: true, message: "Order placed successfully!" });
   } catch (err) {
-    console.error("Order Error:", err);
     res.status(500).json({ success: false, message: "Failed to place order" });
   }
 });
@@ -127,6 +128,11 @@ app.post("/login", async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, message: "Login failed" });
   }
+});
+
+// ✅ Basic Route for Health Check
+app.get("/", (req, res) => {
+    res.send("Server is running smoothly!");
 });
 
 const PORT = process.env.PORT || 3002;
