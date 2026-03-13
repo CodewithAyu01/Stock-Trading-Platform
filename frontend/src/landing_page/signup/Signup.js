@@ -40,7 +40,7 @@ function Signup() {
     <div className="container mt-5 p-5">
       <div className="row align-items-center">
         <div className="col-lg-7">
-          <img src="media/images/Signup.png" alt="Signup" className="img-fluid" />
+          <img src="media/images/signup.png" alt="Signup" className="img-fluid" />
         </div>
         <div className="col-lg-5 p-5 border rounded shadow-sm bg-white">
           <h2 className="mb-4">Signup</h2>

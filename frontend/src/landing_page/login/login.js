@@ -47,7 +47,7 @@ function Login() {
       <div className="row p-5 justify-content-center align-items-center">
         <div className="col-lg-6 col-md-12 text-center mb-5">
           <img 
-            src="media/images/Signup.png" 
+            src="media/images/signup.png" 
             alt="Kite Login" 
             style={{ width: "80%" }} 
           />
