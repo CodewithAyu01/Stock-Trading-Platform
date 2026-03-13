@@ -6,14 +6,12 @@ const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    // Apne Render Backend ka URL yahan use kiya hai
     axios.get("https://stock-tradingplatform.onrender.com/allHoldings").then((res) => {
       setAllHoldings(res.data);
     });
   }, []);
 
-  const labels = allHoldings.map((subArray) => subArray["name"]);
-
+  const labels = allHoldings.map((stock) => stock.name);
   const data = {
     labels,
     datasets: [
@@ -28,7 +26,6 @@ const Holdings = () => {
   return (
     <>
       <h3 className="title">Holdings ({allHoldings.length})</h3>
-
       <div className="order-table">
         <table>
           <thead>
@@ -48,8 +45,6 @@ const Holdings = () => {
               const curValue = stock.price * stock.qty;
               const isProfit = curValue - stock.avg * stock.qty >= 0.0;
               const profClass = isProfit ? "profit" : "loss";
-              const dayClass = stock.isLoss ? "loss" : "profit";
-
               return (
                 <tr key={index}>
                   <td>{stock.name}</td>
@@ -57,31 +52,14 @@ const Holdings = () => {
                   <td>{stock.avg.toFixed(2)}</td>
                   <td>{stock.price.toFixed(2)}</td>
                   <td>{curValue.toFixed(2)}</td>
-                  <td className={profClass}>
-                    {(curValue - stock.avg * stock.qty).toFixed(2)}
-                  </td>
+                  <td className={profClass}>{(curValue - stock.avg * stock.qty).toFixed(2)}</td>
                   <td className={profClass}>{stock.net}</td>
-                  <td className={dayClass}>{stock.day}</td>
+                  <td>{stock.day}</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-      </div>
-
-      <div className="row">
-        <div className="col">
-          <h5>29,875.<span>55</span></h5>
-          <p>Total investment</p>
-        </div>
-        <div className="col">
-          <h5>31,428.<span>95</span></h5>
-          <p>Current value</p>
-        </div>
-        <div className="col">
-          <h5>1,553.40 (+5.20%)</h5>
-          <p>P&L</p>
-        </div>
       </div>
       <VerticalGraph data={data} />
     </>

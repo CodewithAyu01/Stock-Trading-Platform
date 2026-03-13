@@ -12,27 +12,28 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // ✅ LOCALHOST HATA KAR RENDER BACKEND URL DAAL DIYA HAI
+      // ✅ Render Backend URL
       const response = await axios.post("https://stock-tradingplatform.onrender.com/login", { 
         email, 
         password 
       });
 
       if (response.data.success) {
+        // Token aur Username save kar rahe hain
         sessionStorage.setItem("token", response.data.token);
         sessionStorage.setItem("username", response.data.username);
 
         Swal.fire({
           title: "Login Successful!",
-          text: "Welcome back!",
+          text: `Welcome back, ${response.data.username}! Redirecting to Dashboard...`,
           icon: "success",
-          timer: 1500,
+          timer: 2000,
           showConfirmButton: false,
         }).then(() => {
-          // Dashboard par bhejne ke liye agar Dashboard alag URL par hai toh window.location use karein
-          // Agar same project mein hai toh navigate("/") sahi hai
-          navigate("/"); 
-          window.location.reload(); 
+          // ✅ Login ke baad direct Dashboard link par bhej rahe hain
+          // Hum URL mein username bhej rahe hain kyunki Dashboard alag site hai
+          const dashboardUrl = `https://stock-trading-platform2.onrender.com/?user=${response.data.username}`;
+          window.location.href = dashboardUrl;
         });
       }
     } catch (error) {

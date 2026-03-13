@@ -5,7 +5,6 @@ const Positions = () => {
   const [allPositions, setAllPositions] = useState([]);
 
   useEffect(() => {
-    // Backend se positions ka data fetch ho raha hai
     axios.get("https://stock-tradingplatform.onrender.com/allPositions").then((res) => {
       setAllPositions(res.data);
     });
@@ -14,7 +13,6 @@ const Positions = () => {
   return (
     <>
       <h3 className="title">Positions ({allPositions.length})</h3>
-
       <div className="order-table">
         <table>
           <thead>
@@ -33,8 +31,6 @@ const Positions = () => {
               const curValue = stock.price * stock.qty;
               const isProfit = curValue - stock.avg * stock.qty >= 0.0;
               const profClass = isProfit ? "profit" : "loss";
-              const dayClass = stock.isLoss ? "loss" : "profit";
-
               return (
                 <tr key={index}>
                   <td>{stock.product}</td>
@@ -42,10 +38,8 @@ const Positions = () => {
                   <td>{stock.qty}</td>
                   <td>{stock.avg.toFixed(2)}</td>
                   <td>{stock.price.toFixed(2)}</td>
-                  <td className={profClass}>
-                    {(curValue - stock.avg * stock.qty).toFixed(2)}
-                  </td>
-                  <td className={dayClass}>{stock.day}</td>
+                  <td className={profClass}>{(curValue - stock.avg * stock.qty).toFixed(2)}</td>
+                  <td>{stock.day}</td>
                 </tr>
               );
             })}
