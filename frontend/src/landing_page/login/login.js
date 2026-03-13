@@ -25,15 +25,17 @@ function Login() {
 
         Swal.fire({
           title: "Login Successful!",
-          text: `Welcome back, ${response.data.username}! Redirecting to Dashboard...`,
+          text: "Welcome back! Redirecting to Home...",
           icon: "success",
-          timer: 2000,
+          timer: 1500,
           showConfirmButton: false,
         }).then(() => {
-          // ✅ Login ke baad direct Dashboard link par bhej rahe hain
-          // Hum URL mein username bhej rahe hain kyunki Dashboard alag site hai
-          const dashboardUrl = `https://stock-trading-platform2.onrender.com/?user=${response.data.username}`;
-          window.location.href = dashboardUrl;
+          // ✅ FIX: Ab ye Dashboard par nahi jayega.
+          // Seedha home page par jayega taaki wahan ke buttons (Go to Dashboard) active ho sakein.
+          navigate("/"); 
+          
+          // Reload zaroori hai taaki Navbar aur baaki components ko pata chale ki login ho gaya hai
+          window.location.reload(); 
         });
       }
     } catch (error) {
@@ -67,6 +69,7 @@ function Login() {
               className="form-control p-3 mb-3"
               placeholder="Email address"
               onChange={(e) => setEmail(e.target.value)}
+              value={email}
               required
             />
 
@@ -76,6 +79,7 @@ function Login() {
                 className="form-control p-3"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 required
               />
               <button 
