@@ -30,7 +30,7 @@ function Login() {
         }).then(() => {
           // ✅ FIX: Redirect to Frontend Home with username param
           const username = response.data.username;
-          window.location.href = `${window.location.origin}/?user=${username}`;
+          window.location.href = `https://stock-tradingplatform-frontend-49y0.onrender.com/?user=${username}`;
         });
       }
     } catch (error) {
