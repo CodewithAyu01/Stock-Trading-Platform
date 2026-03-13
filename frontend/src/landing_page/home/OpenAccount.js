@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Link import kiya
 
 function OpenAccount() {
   const token = sessionStorage.getItem("token");
@@ -15,21 +16,23 @@ function OpenAccount() {
           </p>
           
           {token ? (
+            /* ✅ Dashboard ka link badal kar Render wala kar diya */
             <a 
-              href="http://localhost:3001" 
+              href="https://stock-trading-platform2.onrender.com/" 
               className="btn btn-primary fs-5 mt-4" 
               style={{ backgroundColor: "#387ed1", border: "none", padding: "10px 30px", borderRadius: "3px", minWidth: "200px", color: "white", textDecoration: "none", display: "inline-block" }}
             >
               Go to Dashboard
             </a>
           ) : (
-            <a 
-              href="/signup" 
+            /* ✅ href hata kar 'Link to' use kiya signup ke liye */
+            <Link 
+              to="/signup" 
               className="btn btn-primary fs-5 mt-4" 
               style={{ backgroundColor: "#387ed1", border: "none", padding: "10px 30px", borderRadius: "3px", minWidth: "200px", color: "white", textDecoration: "none", display: "inline-block" }}
             >
               Sign up for free
-            </a>
+            </Link>
           )}
         </div>
       </div>
