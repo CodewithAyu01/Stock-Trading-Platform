@@ -18,7 +18,6 @@ function Login() {
       });
 
       if (response.data.success) {
-        // Data save kar rahe hain
         sessionStorage.setItem("token", response.data.token);
         sessionStorage.setItem("username", response.data.username);
 
@@ -29,8 +28,8 @@ function Login() {
           timer: 1500,
           showConfirmButton: false,
         }).then(() => {
-          // ✅ FIX: Redirecting to clean URL without query params
-          window.location.href = "https://stock-tradingplatform-frontend-49y0.onrender.com/";
+          // ✅ Redirecting to YOUR Frontend Homepage
+          window.location.href = "https://stock-trading-platform-49y0.onrender.com/";
         });
       }
     } catch (error) {

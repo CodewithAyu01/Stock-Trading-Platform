@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 
 function Hero() {
   const token = sessionStorage.getItem("token");
-  const username = sessionStorage.getItem("username"); // Session se naam liya
+  const username = sessionStorage.getItem("username"); 
   const navigate = useNavigate();
 
   const handleDashboardClick = (e) => {
     e.preventDefault();
-    // Dashboard Port 3000 par hai, usme username query parameter ki tarah bhej rahe hain
+    // ✅ Redirecting to YOUR Dashboard Service with Username
     if (username) {
-      window.location.href = `http://localhost:3000?username=${username}`;
+      window.location.href = `https://stock-trading-platform2.onrender.com/?user=${username}`;
     } else {
-      window.location.href = "http://localhost:3000";
+      window.location.href = "https://stock-trading-platform2.onrender.com/";
     }
   };
 
